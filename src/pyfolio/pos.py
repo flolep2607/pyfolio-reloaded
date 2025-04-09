@@ -68,9 +68,9 @@ def get_top_long_short_abs(positions, top=10):
     """
 
     positions = positions.drop("cash", axis="columns")
-    df_max = positions.max()
-    df_min = positions.min()
-    df_abs_max = positions.abs().max()
+    df_max = pd.to_numeric(positions.max(), errors='coerce')
+    df_min = pd.to_numeric(positions.min(), errors='coerce')
+    df_abs_max = pd.to_numeric(positions.abs().max(), errors='coerce')
     df_top_long = df_max[df_max > 0].nlargest(top)
     df_top_short = df_min[df_min < 0].nsmallest(top)
     df_top_abs = df_abs_max.nlargest(top)
